@@ -10,6 +10,7 @@ public class ParameterUtils {
 	private static final String NUM_TOPICS = "num_topics";
 	private static final String NUM_ITERS = "num_iters";
 	public static final String NAME_CONFIG = "name_config";
+	public static final String STOP_WORDS = "stop\\stopwords.txt";
 
 	public static String getCorpFilePath(Map<String, String> params) {
 		String baseDir = params.get(BASE_DIR);
@@ -92,5 +93,5 @@ public class ParameterUtils {
 		String distrPath = getTopicDistrPath(params);
 		return distrPath + "/ldaHelper.obj";
 	}
-
+	
 }
