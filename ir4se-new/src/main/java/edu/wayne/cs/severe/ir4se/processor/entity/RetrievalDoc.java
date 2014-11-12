@@ -7,7 +7,7 @@ public class RetrievalDoc {
 	private Integer docRank;
 	private String nameDoc;
 	private Object addData;
-
+	private Float score;
 	public RetrievalDoc() {
 	}
 
@@ -84,6 +84,14 @@ public class RetrievalDoc {
 
 	public void setAddData(Object addData) {
 		this.addData = addData;
+	}
+
+	public Float getScore() {
+		return score;
+	}
+
+	public void setScore(Float score) {
+		this.score = score;
 	}
 
 }
