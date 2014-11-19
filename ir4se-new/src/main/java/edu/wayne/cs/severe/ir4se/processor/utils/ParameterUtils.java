@@ -1,33 +1,35 @@
 package edu.wayne.cs.severe.ir4se.processor.utils;
 
+import java.io.File;
 import java.util.Map;
 
 public class ParameterUtils {
 
+	public static final String FILE_SEP = File.separator;
 	public static final String BASE_DIR = "base_dir";
 	public static final String SYSTEM = "system";
 	public static final String RET_MODEL = "ret_model";
 	private static final String NUM_TOPICS = "num_topics";
 	private static final String NUM_ITERS = "num_iters";
 	public static final String NAME_CONFIG = "name_config";
-	public static final String STOP_WORDS = "stop\\stopwords.txt";
+	public static final String STOP_WORDS = "stop" + FILE_SEP + "stopwords.txt";
 
 	public static String getCorpFilePath(Map<String, String> params) {
 		String baseDir = params.get(BASE_DIR);
 		String sys = params.get(SYSTEM);
-		return baseDir + "/" + sys + "/" + sys + "_Corpus.txt";
+		return baseDir + FILE_SEP + sys + FILE_SEP + sys + "_Corpus.txt";
 	}
 
 	public static String getIndexFolderPath(Map<String, String> params) {
 		String baseDir = params.get(BASE_DIR);
 		String sys = params.get(SYSTEM);
-		return baseDir + "/" + sys + "/index";
+		return baseDir + FILE_SEP + sys + ParameterUtils.FILE_SEP + "index";
 	}
 
 	public static String getTopicDistrPath(Map<String, String> params) {
 		String baseDir = params.get(BASE_DIR);
 		String sys = params.get(SYSTEM);
-		return baseDir + "/" + sys + "/plsa_data";
+		return baseDir + FILE_SEP + sys + ParameterUtils.FILE_SEP + "plsa_data";
 	}
 
 	public static int getNumberOfTopics(Map<String, String> params) {
@@ -53,26 +55,27 @@ public class ParameterUtils {
 	public static String getQueriesFilePath(Map<String, String> params) {
 		String baseDir = params.get(BASE_DIR);
 		String sys = params.get(SYSTEM);
-		return baseDir + "/" + sys + "/" + sys + "_Queries.txt";
+		return baseDir + FILE_SEP + sys + FILE_SEP + sys + "_Queries.txt";
 	}
 
 	public static String getRelJudFilePath(Map<String, String> params) {
 		String baseDir = params.get(BASE_DIR);
 		String sys = params.get(SYSTEM);
-		return baseDir + "/" + sys + "/" + sys + "_Queries.txt";
+		return baseDir + FILE_SEP + sys + FILE_SEP + sys + "_Queries.txt";
 	}
 
 	public static String getResultsFilePath(Map<String, String> params) {
 		String baseDir = params.get(BASE_DIR);
 		String sys = params.get(SYSTEM);
-		return baseDir + "/" + sys + "/results";
+		return baseDir + FILE_SEP + sys + ParameterUtils.FILE_SEP + "results";
 	}
 
 	public static String getStatsFilePath(Map<String, String> params) {
 		String baseDir = params.get(BASE_DIR);
 		String sys = params.get(SYSTEM);
 		String resultFileName = getResultFileName(params);
-		return baseDir + "/" + sys + "/results/" + resultFileName + ".csv";
+		return baseDir + FILE_SEP + sys + ParameterUtils.FILE_SEP + "results"
+				+ ParameterUtils.FILE_SEP + resultFileName + ".csv";
 	}
 
 	public static String getResultFileName(Map<String, String> params) {
@@ -86,12 +89,12 @@ public class ParameterUtils {
 	public static String getDocMapPath(Map<String, String> params) {
 		String baseDir = params.get(BASE_DIR);
 		String sys = params.get(SYSTEM);
-		return baseDir + "/" + sys + "/" + sys + "_Mapping.txt";
+		return baseDir + FILE_SEP + sys + FILE_SEP + sys + "_Mapping.txt";
 	}
 
 	public static String getLdaHelperPath(Map<String, String> params) {
 		String distrPath = getTopicDistrPath(params);
-		return distrPath + "/ldaHelper.obj";
+		return distrPath + ParameterUtils.FILE_SEP + "ldaHelper.obj";
 	}
-	
+
 }

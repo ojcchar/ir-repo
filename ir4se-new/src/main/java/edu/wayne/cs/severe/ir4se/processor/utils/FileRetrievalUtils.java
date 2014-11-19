@@ -17,5 +17,10 @@ public class FileRetrievalUtils {
 		File file = new File(filePath);
 		file.delete();
 	}
+	
+	public static boolean fileExists(String filePath) {
+		File file = new File(filePath);
+		return file.exists();
+	}
 
 }

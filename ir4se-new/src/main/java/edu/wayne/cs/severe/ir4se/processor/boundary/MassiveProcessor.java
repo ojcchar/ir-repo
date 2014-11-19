@@ -105,7 +105,7 @@ public class MassiveProcessor {
 				}
 			}
 
-			File configFile = new File(NAME_FOLDER + "/" + fileId + "_"
+			File configFile = new File(NAME_FOLDER + ParameterUtils.FILE_SEP + fileId + "_"
 					+ nameConfig + ".xml");
 			writer = new FileWriter(configFile);
 			String[] paramsTempl = new String[params.size() + 3];

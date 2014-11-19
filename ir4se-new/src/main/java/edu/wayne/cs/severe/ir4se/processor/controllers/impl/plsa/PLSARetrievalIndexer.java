@@ -25,7 +25,8 @@ public class PLSARetrievalIndexer implements RetrievalIndexer {
 	public void buildIndex(String indexPath, List<RetrievalDoc> docs,
 			Map<String, String> params) throws IndexerException {
 
-		DefaultRetrievalIndexer defIndexer = new DefaultRetrievalIndexer(new WhitespaceAnalyzer());
+		DefaultRetrievalIndexer defIndexer = new DefaultRetrievalIndexer(
+				new WhitespaceAnalyzer());
 		defIndexer.buildIndex(indexPath, docs, params);
 
 		PLSATopicModeler modeler = null;
@@ -49,31 +50,32 @@ public class PLSARetrievalIndexer implements RetrievalIndexer {
 			FileUtils.deleteDirectory(directory);
 			directory.mkdir();
 
-//			String mappingPath = ParameterUtils.getDocMapPath(params);
-//			String ldaHelper = ParameterUtils.getLdaHelperPath(params);
-//			// String resultDirPath = ParameterUtils.getResultsFilePath(params);
-//			String topics = String.valueOf(ParameterUtils
-//					.getNumberOfTopics(params));
-//
-//			String[] args = { ParameterUtils.getCorpFilePath(params),
-//					indexPath, ldaHelper, "--fileCodes", mappingPath,
-//					"--ldaConfig",
-//					topics + "," + ParameterUtils.getTopicDistrPath(params) };
-//			String argsStr = "";
-//			for (String arg : args) {
-//				argsStr += (arg + " ");
-//			}
-//			Runtime rt = Runtime.getRuntime();
-//			String command = "java -jar lucene-lda.jar " + argsStr;
-//			System.out.println(command);
-//
-//			Process pr = rt.exec(command);
-//
-//			int exitVal = pr.waitFor();
-//
-//			if (exitVal != 0) {
-//				throw new Exception("Could not generate the PLSA index");
-//			}
+			// String mappingPath = ParameterUtils.getDocMapPath(params);
+			// String ldaHelper = ParameterUtils.getLdaHelperPath(params);
+			// // String resultDirPath =
+			// ParameterUtils.getResultsFilePath(params);
+			// String topics = String.valueOf(ParameterUtils
+			// .getNumberOfTopics(params));
+			//
+			// String[] args = { ParameterUtils.getCorpFilePath(params),
+			// indexPath, ldaHelper, "--fileCodes", mappingPath,
+			// "--ldaConfig",
+			// topics + "," + ParameterUtils.getTopicDistrPath(params) };
+			// String argsStr = "";
+			// for (String arg : args) {
+			// argsStr += (arg + " ");
+			// }
+			// Runtime rt = Runtime.getRuntime();
+			// String command = "java -jar lucene-lda.jar " + argsStr;
+			// System.out.println(command);
+			//
+			// Process pr = rt.exec(command);
+			//
+			// int exitVal = pr.waitFor();
+			//
+			// if (exitVal != 0) {
+			// throw new Exception("Could not generate the PLSA index");
+			// }
 
 		} catch (Exception e) {
 			IndexerException e2 = new IndexerException(e.getClass()
@@ -117,7 +119,8 @@ public class PLSARetrievalIndexer implements RetrievalIndexer {
 		FileWriter writer = null;
 		try {
 
-			writer = new FileWriter(directory.getAbsolutePath() + "/theta.dat");
+			writer = new FileWriter(directory.getAbsolutePath()
+					+ ParameterUtils.FILE_SEP + "theta.dat");
 
 			int K = probTopsDocs.length;
 			int D = probTopsDocs[0].length;
@@ -156,7 +159,7 @@ public class PLSARetrievalIndexer implements RetrievalIndexer {
 		FileWriter writer = null;
 		try {
 
-			writer = new FileWriter(directory.getAbsolutePath() + "/files.dat");
+			writer = new FileWriter(directory.getAbsolutePath() +  ParameterUtils.FILE_SEP + "files.dat");
 
 			for (RetrievalDoc doc : docs) {
 
@@ -186,7 +189,7 @@ public class PLSARetrievalIndexer implements RetrievalIndexer {
 		FileWriter writer = null;
 		try {
 
-			writer = new FileWriter(directory.getAbsolutePath() + "/words.dat");
+			writer = new FileWriter(directory.getAbsolutePath() +  ParameterUtils.FILE_SEP + "words.dat");
 
 			for (double[] words : topsWords) {
 
@@ -222,7 +225,7 @@ public class PLSARetrievalIndexer implements RetrievalIndexer {
 		FileWriter writer = null;
 		try {
 
-			writer = new FileWriter(directory.getAbsolutePath() + "/vocab.dat");
+			writer = new FileWriter(directory.getAbsolutePath() +  ParameterUtils.FILE_SEP + "vocab.dat");
 
 			for (String term : terms) {
 				writer.write(term);
