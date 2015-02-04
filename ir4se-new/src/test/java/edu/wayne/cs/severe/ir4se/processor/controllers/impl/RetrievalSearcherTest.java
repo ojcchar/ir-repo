@@ -7,14 +7,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import edu.wayne.cs.severe.ir4se.processor.controllers.ParamParser;
 import edu.wayne.cs.severe.ir4se.processor.controllers.RetrievalSearcher;
-import edu.wayne.cs.severe.ir4se.processor.controllers.impl.DefaultParamsParser;
-import edu.wayne.cs.severe.ir4se.processor.controllers.impl.DefaultRetrievalParser;
 import edu.wayne.cs.severe.ir4se.processor.controllers.impl.bm25.BM25RetrievalIndexer;
 import edu.wayne.cs.severe.ir4se.processor.controllers.impl.bm25.BM25RetrievalSearcher;
 import edu.wayne.cs.severe.ir4se.processor.entity.Query;
@@ -48,12 +47,14 @@ public class RetrievalSearcherTest {
 		idxFile.mkdir();
 
 		// build the index
-		List<RetrievalDoc> docs = parser.readCorpus(ParameterUtils
-				.getCorpFilePath(params), TestUtils.MAPPING_FILE_PATH);
+		List<RetrievalDoc> docs = parser.readCorpus(
+				ParameterUtils.getCorpFilePath(params),
+				TestUtils.MAPPING_FILE_PATH);
 		indexer.buildIndex(indexPath, docs, null);
 
 		// initialize the searcher
-		searcher = new BM25RetrievalSearcher(indexPath, params);
+		searcher = new BM25RetrievalSearcher(indexPath, params,
+				new StandardAnalyzer());
 	}
 
 	@AfterClass

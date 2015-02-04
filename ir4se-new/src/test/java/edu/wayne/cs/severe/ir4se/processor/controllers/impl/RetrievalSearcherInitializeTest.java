@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -37,7 +38,7 @@ public class RetrievalSearcherInitializeTest {
 		params.put("k1", "1asfadf");
 		params.put("b", "kafkladjf");
 		searcher = new BM25RetrievalSearcher(TestUtils.NOT_EMPTY_INDEX_FOLDER,
-				params);
+				params, new StandardAnalyzer());
 	}
 
 	/*
@@ -49,7 +50,7 @@ public class RetrievalSearcherInitializeTest {
 		params.put("k1", "");
 		params.put("b", "");
 		searcher = new BM25RetrievalSearcher(TestUtils.NOT_EMPTY_INDEX_FOLDER,
-				params);
+				params, new StandardAnalyzer());
 	}
 
 	/*
@@ -61,7 +62,7 @@ public class RetrievalSearcherInitializeTest {
 		params.put("k1", null);
 		params.put("b", null);
 		searcher = new BM25RetrievalSearcher(TestUtils.NOT_EMPTY_INDEX_FOLDER,
-				params);
+				params, new StandardAnalyzer());
 	}
 
 }

@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.queryparser.classic.ParseException;
@@ -22,17 +21,18 @@ import edu.wayne.cs.severe.ir4se.processor.entity.Query;
 import edu.wayne.cs.severe.ir4se.processor.entity.RetrievalDoc;
 import edu.wayne.cs.severe.ir4se.processor.exception.SearchException;
 import edu.wayne.cs.severe.ir4se.processor.utils.ExceptionUtils;
+import edu.wayne.cs.severe.ir4se.processor.utils.ParameterUtils;
 
 public class BM25RetrievalSearcher extends RetrievalSearcher {
 
-	private IndexSearcher searcher;
-	private IndexReader reader;
-	private QueryParser parser;
+	protected IndexSearcher searcher;
+	protected IndexReader reader;
+	protected QueryParser parser;
+	protected Integer resultsNumber;
 
-	public BM25RetrievalSearcher(String indexPath, Map<String, String> params)
-			throws IOException, SearchException {
+	public BM25RetrievalSearcher(String indexPath, Map<String, String> params,
+			Analyzer analyzer) throws IOException, SearchException {
 		super(indexPath, params);
-		Analyzer analyzer = new StandardAnalyzer();
 		String field = "text";
 
 		parser = new QueryParser(field, analyzer);
@@ -44,6 +44,15 @@ public class BM25RetrievalSearcher extends RetrievalSearcher {
 		}
 
 		reader = DirectoryReader.open(FSDirectory.open(fileIndex));
+
+		// number of results
+		String paramNum = params.get(ParameterUtils.NUM_BUGS_PARAM);
+		if (paramNum == null) {
+			this.resultsNumber = reader.numDocs();
+		} else {
+			this.resultsNumber = Integer.valueOf(paramNum);
+		}
+
 		searcher = new IndexSearcher(reader);
 		if (params.get("k1") == "" || params.get("b") == "") {
 			throw new SearchException("There are no values for k1 and b");
@@ -69,7 +78,6 @@ public class BM25RetrievalSearcher extends RetrievalSearcher {
 			org.apache.lucene.search.Query lucceneQuery = parser
 					.parse(txtQuery);
 
-			int resultsNumber = reader.numDocs();
 			ScoreDoc[] hits = searcher
 					.search(lucceneQuery, null, resultsNumber).scoreDocs;
 			for (int i = 0; i < hits.length; i++) {

@@ -3,6 +3,8 @@ package edu.wayne.cs.severe.ir4se.processor.controllers.factory;
 import java.io.IOException;
 import java.util.Map;
 
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
+
 import edu.wayne.cs.severe.ir4se.processor.controllers.RetrievalIndexer;
 import edu.wayne.cs.severe.ir4se.processor.controllers.RetrievalSearcher;
 import edu.wayne.cs.severe.ir4se.processor.controllers.RetrievalTopicModeler;
@@ -45,7 +47,8 @@ public class RetrievalFactory {
 
 		RetrievalSearcher searcher = null;
 		if (GenericConstants.BM25.equalsIgnoreCase(retModel)) {
-			searcher = new BM25RetrievalSearcher(indxFolder, params);
+			searcher = new BM25RetrievalSearcher(indxFolder, params,
+					new StandardAnalyzer());
 		} else if (GenericConstants.PLSA.equalsIgnoreCase(retModel)) {
 			// searcher = new PLSASearcher(indxFolder, params, topicDistr);
 		}

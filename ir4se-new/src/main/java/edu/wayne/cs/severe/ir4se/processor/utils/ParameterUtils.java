@@ -13,6 +13,7 @@ public class ParameterUtils {
 	private static final String NUM_ITERS = "num_iters";
 	public static final String NAME_CONFIG = "name_config";
 	public static final String STOP_WORDS = "stop" + FILE_SEP + "stopwords.txt";
+	public static final String NUM_BUGS_PARAM = "num_bugs";
 
 	public static String getCorpFilePath(Map<String, String> params) {
 		String baseDir = params.get(BASE_DIR);
